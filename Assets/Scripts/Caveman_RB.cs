@@ -16,6 +16,7 @@ public class Caveman_RB : MonoBehaviour
     private float OrigSpeed;
     public float TimeScale = 50f;
 
+
     public GameObject RotationTracker;
 
     private Attack2 AtkMain;
@@ -23,19 +24,25 @@ public class Caveman_RB : MonoBehaviour
     public GameObject Body;
     private Animator BodyAnim;
 
+    public Color TeamColor;
+    
     // Use this for initialization
     void Start()
     {
+
         controller = GetComponent<Rigidbody>();
         body = GetComponent<Collider>();
         distground = body.bounds.extents.y;
         OrigSpeed = MoveSpeed;
 
-        AtkMain = transform.GetChild(2).GetComponent<Attack2>();
-
+        //AtkMain = transform.GetChild(2).GetComponent<Attack2>();
+        AtkMain=transform.FindChild("Hitboxes").GetComponent<Attack2>();
         BodyAnim = Body.GetComponent<Animator>();
 
     }
+
+    public void TeamSet(Color newcol) { TeamColor = newcol;  }
+    public Color TeamGet() { return TeamColor; }
 
     private bool IsGrounded()
     {
@@ -55,13 +62,14 @@ public class Caveman_RB : MonoBehaviour
 
 
         //MOVEMENT
-        //bool tempground = IsGrounded();
+
         //Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y-(distground+.07f), transform.position.z), Color.red);
 
         if (IsGrounded())
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                //Damage(5);
                 controller.AddForce(Vector3.up * JumpPower, ForceMode.VelocityChange);
             }
             if (Input.GetKey(KeyCode.LeftShift))
@@ -136,5 +144,9 @@ public class Caveman_RB : MonoBehaviour
         yield return new WaitForSeconds(timer);
         hitstun = false;
     }
+
+
+
+
 
 }

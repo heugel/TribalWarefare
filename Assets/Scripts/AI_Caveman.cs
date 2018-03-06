@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AI_Caveman : MonoBehaviour
 {
+    public float DetRange = 25;
 
     private Rigidbody controller;
     private Vector3 moveVector;
@@ -16,15 +17,35 @@ public class AI_Caveman : MonoBehaviour
     private float OrigSpeed;
     public float TimeScale = 50f;
 
+    public float MaxHP = 50;
+    private float curhp;
+
     //public GameObject RotationTracker;
 
     private Attack2 AtkMain;
 
     public GameObject Body;
     private Animator BodyAnim;
+
+    public Color TeamColor;
+
+    public enum Strat
+    {
+        wander,
+        attack,
+        sneakup,
+        onguard,
+        blocking,
+        hunt,
+        firestarter
+    }
+
+
     // Use this for initialization
     void Start()
     {
+        curhp = MaxHP;
+
         controller = GetComponent<Rigidbody>();
         body = GetComponent<Collider>();
         distground = body.bounds.extents.y;
@@ -34,6 +55,9 @@ public class AI_Caveman : MonoBehaviour
 
         BodyAnim = Body.GetComponent<Animator>();
     }
+
+    public void TeamSet(Color newcol) { TeamColor = newcol; }
+    public Color TeamGet() { return TeamColor; }
 
     private bool IsGrounded()
     {

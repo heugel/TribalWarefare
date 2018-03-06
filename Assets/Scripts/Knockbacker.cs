@@ -24,9 +24,25 @@ public class Knockbacker : MonoBehaviour {
             //based on tag?
 
             otherrb.AddForce(kbvec, ForceMode.VelocityChange);
+            //add team checker for these parts
             if (otherrb.gameObject.tag == "Player")
             {
                 otherrb.gameObject.GetComponent<Caveman_RB>().Hitstun(hitstun);
+
+                otherrb.gameObject.GetComponent<Health_Caveman>().Damage(damage);
+                if (otherrb.gameObject.GetComponent<Health_Caveman>().GetCurHealth() <= 0)
+                {
+
+                }
+            }
+            else if (otherrb.gameObject.tag == "OnlinePlayer")
+            {
+                otherrb.gameObject.GetComponent<Caveman_RB>().Hitstun(hitstun);
+            }
+            else if (otherrb.gameObject.tag == "AIPlayer")
+            {
+                otherrb.gameObject.GetComponent<AI_Caveman>().Hitstun(hitstun);
+                
             }
         }
     }
