@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Networking;
 using UnityEngine;
 
-public class Caveman_RB : MonoBehaviour
+public class Caveman_RB : NetworkBehaviour
 {
 
     private Rigidbody controller;
@@ -37,7 +38,8 @@ public class Caveman_RB : MonoBehaviour
 
         //AtkMain = transform.GetChild(2).GetComponent<Attack2>();
         //AtkMain=transform.FindChild("Hitboxes").GetComponent<Attack2>();
-        BodyAnim = Body.GetComponent<Animator>();
+        //BodyAnim = Body.GetComponent<Animator>();
+        BodyAnim = GetComponent<Animator>();
 
     }
 

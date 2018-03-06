@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Networking;
 using UnityEngine;
 
-public class Attack2 : MonoBehaviour
+public class Attack2 : NetworkBehaviour
 {
+    
 
     private GameObject clubblock, spearthrow, spearstab;
 
@@ -43,8 +45,11 @@ public class Attack2 : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        BodyAnim = Body.GetComponent<Animator>();
+        Body.GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
+        Body.GetComponent<NetworkAnimator>().SetParameterAutoSend(1, true);
 
+        BodyAnim = Body.GetComponent<Animator>();
+        
         clubblock = transform.GetChild(0).gameObject;
 
         //clubswing = transform.GetChild(1).gameObject;
