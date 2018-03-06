@@ -8,6 +8,8 @@ public class Knockbacker : MonoBehaviour {
     public float blockback = 1;
     public float hitstun = .4f;
 
+    public float damage = 0;
+
     private void OnTriggerEnter(Collider other)
     {
         

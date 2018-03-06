@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Caveman_RB : MonoBehaviour
+public class AI_Caveman : MonoBehaviour
 {
 
     private Rigidbody controller;
@@ -16,13 +16,12 @@ public class Caveman_RB : MonoBehaviour
     private float OrigSpeed;
     public float TimeScale = 50f;
 
-    public GameObject RotationTracker;
+    //public GameObject RotationTracker;
 
     private Attack2 AtkMain;
 
     public GameObject Body;
     private Animator BodyAnim;
-
     // Use this for initialization
     void Start()
     {
@@ -34,7 +33,6 @@ public class Caveman_RB : MonoBehaviour
         AtkMain = transform.GetChild(2).GetComponent<Attack2>();
 
         BodyAnim = Body.GetComponent<Animator>();
-
     }
 
     private bool IsGrounded()
@@ -45,8 +43,6 @@ public class Caveman_RB : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        BodyAnim.SetBool("walk", direction!=Vector3.zero);
         //ATTACK
         if (Input.GetKeyDown(KeyCode.Mouse0) && !AtkMain.isSwinging())
         {
@@ -58,7 +54,7 @@ public class Caveman_RB : MonoBehaviour
         //bool tempground = IsGrounded();
         //Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y-(distground+.07f), transform.position.z), Color.red);
 
-        if (IsGrounded())
+        /*if (IsGrounded())
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -66,10 +62,9 @@ public class Caveman_RB : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.LeftShift))
                 MoveSpeed = OrigSpeed / 5;
-
-        }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-            MoveSpeed = OrigSpeed;
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+                MoveSpeed = OrigSpeed;
+        }*/
 
         float gofor = Input.GetAxis("Vertical");
         float goside = Input.GetAxis("Horizontal");
@@ -80,29 +75,29 @@ public class Caveman_RB : MonoBehaviour
             goside = 0;
         }
 
-        if (gofor != 0 || goside != 0)
+        /*if (gofor != 0 || goside != 0)
         {
-            direction = RotationTracker.transform.forward*gofor;
+            direction = RotationTracker.transform.forward * gofor;
             direction += RotationTracker.transform.right * goside;
             direction.y = 0;
             direction.Normalize();
-        }
+        }*/
         /*else if (gofor == 0 && goside == 0 && Mathf.Abs(controller.velocity.x)+Mathf.Abs(controller.velocity.z)>0)
         {
             direction = Vector3.zero;
             controller.velocity *= .3f;
             //Debug.Log("jump blocked");
         }*/
-        else if (gofor==0 && goside ==0)
+        else if (gofor == 0 && goside == 0)
         {
             direction = Vector3.zero;
 
         }
         else direction = Vector3.zero;
-        
+
     }
 
-    private void FixedUpdate()
+    /*private void FixedUpdate()
     {
         //Debug.Log(IsGrounded());
         if (IsGrounded())
@@ -113,7 +108,7 @@ public class Caveman_RB : MonoBehaviour
                 controller.velocity = controller.velocity.normalized * MoveSpeed;
             }
 
-            if(direction==Vector3.zero)// && (controller.velocity.x!=0 || controller.velocity.z != 0))
+            if (direction == Vector3.zero)// && (controller.velocity.x!=0 || controller.velocity.z != 0))
             {
                 controller.velocity = new Vector3(controller.velocity.x * .3f, controller.velocity.y, controller.velocity.z * .3f);
             }
@@ -123,7 +118,7 @@ public class Caveman_RB : MonoBehaviour
             controller.AddForce(direction * 3f * Time.deltaTime, ForceMode.VelocityChange);
         }
         //Debug.Log(controller.velocity.magnitude);
-    }
+    }*/
 
     private bool hitstun = false;
     public void Hitstun(float t)
