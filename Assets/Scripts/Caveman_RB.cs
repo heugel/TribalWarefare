@@ -19,7 +19,7 @@ public class Caveman_RB : MonoBehaviour
 
     public GameObject RotationTracker;
 
-    private Attack2 AtkMain;
+    //private Attack2 AtkMain;
 
     public GameObject Body;
     private Animator BodyAnim;
@@ -36,7 +36,7 @@ public class Caveman_RB : MonoBehaviour
         OrigSpeed = MoveSpeed;
 
         //AtkMain = transform.GetChild(2).GetComponent<Attack2>();
-        AtkMain=transform.FindChild("Hitboxes").GetComponent<Attack2>();
+        //AtkMain=transform.FindChild("Hitboxes").GetComponent<Attack2>();
         BodyAnim = Body.GetComponent<Animator>();
 
     }
@@ -54,14 +54,6 @@ public class Caveman_RB : MonoBehaviour
     {
 
         BodyAnim.SetBool("walk", direction!=Vector3.zero);
-        //ATTACK
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !AtkMain.isSwinging())
-        {
-            AtkMain.LaunchAttack(Attack2.AtkType.swing);
-        }
-
-
-        //MOVEMENT
 
         //Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y-(distground+.07f), transform.position.z), Color.red);
 

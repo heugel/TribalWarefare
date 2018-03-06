@@ -65,10 +65,10 @@ public class Attack2 : MonoBehaviour
     }
     IEnumerator Swing()
     {
-        yield return new WaitForSeconds(.05f);
+        yield return new WaitForSeconds(.2f);
         Swinging = true;
         clubswing.GetComponent<CapsuleCollider>().enabled = true;
-        yield return new WaitForSeconds(.45f);
+        yield return new WaitForSeconds(.3f);
         clubswing.GetComponent<CapsuleCollider>().enabled = false;
 
         clubswing.transform.localPosition = origclubpos;
