@@ -5,6 +5,7 @@ using UnityEngine;
 public class AI_Caveman : MonoBehaviour
 {
     public float DetRange = 25;
+    public float atkrange = 3;
 
     private Rigidbody controller;
     private Vector3 moveVector;
@@ -37,9 +38,11 @@ public class AI_Caveman : MonoBehaviour
         onguard,
         blocking,
         hunt,
-        firestarter
+        firestarter,
+        follow,
+        followpath
     }
-
+    private Strat strat = Strat.wander;
 
     // Use this for initialization
     void Start()
@@ -51,9 +54,28 @@ public class AI_Caveman : MonoBehaviour
         distground = body.bounds.extents.y;
         OrigSpeed = MoveSpeed;
 
+        //change this
         AtkMain = transform.GetChild(2).GetComponent<Attack2>();
 
         BodyAnim = Body.GetComponent<Animator>();
+    }
+
+    IEnumerator Wander()
+    {
+        while (strat == Strat.wander)
+        {
+            transform.RotateAround(transform.position, transform.up, Time.deltaTime * 20f);
+            direction = transform.forward;
+            direction.y = 0;
+            direction.Normalize();
+            yield return new WaitForEndOfFrame();
+        }
+        
+    }
+
+    void Attack()
+    {
+
     }
 
     public void TeamSet(Color newcol) { TeamColor = newcol; }
@@ -121,7 +143,7 @@ public class AI_Caveman : MonoBehaviour
 
     }
 
-    /*private void FixedUpdate()
+    private void FixedUpdate()
     {
         //Debug.Log(IsGrounded());
         if (IsGrounded())
@@ -142,7 +164,7 @@ public class AI_Caveman : MonoBehaviour
             controller.AddForce(direction * 3f * Time.deltaTime, ForceMode.VelocityChange);
         }
         //Debug.Log(controller.velocity.magnitude);
-    }*/
+    }
 
     private bool hitstun = false;
     public void Hitstun(float t)
