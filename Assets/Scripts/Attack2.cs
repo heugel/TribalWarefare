@@ -42,11 +42,15 @@ public class Attack2 : NetworkBehaviour
                 break;
         }
     }
+    [Command]
+    public void Cmd_SendAnim(bool anim)
+    {
+        GetComponent<PlayerInteraction>().Rpc_RecAnim("hit",anim);
+    }
     // Use this for initialization
+
     void Start()
     {
-        Body.GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
-        Body.GetComponent<NetworkAnimator>().SetParameterAutoSend(1, true);
 
         BodyAnim = Body.GetComponent<Animator>();
         
@@ -56,12 +60,25 @@ public class Attack2 : NetworkBehaviour
         origclubpos = clubswing.transform.localPosition;
         origclubrot = clubswing.transform.localRotation;
 
+        //Body.GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
+
     }
 
     // Update is called once per frame
     void Update()
     {
         BodyAnim.SetBool("hit", Swinging);
+        Cmd_SendAnim(Swinging);
+        //Body.GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
+        //Body.GetComponent<NetworkAnimator>().SetParameterAutoSend(1, true);
+        /*if (isLocalPlayer)
+        {
+            GetComponent<NetworkAnimator>().GetParameterAutoSend(0);
+            GetComponent<NetworkAnimator>().GetParameterAutoSend(1);
+        }
+
+        GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
+        GetComponent<NetworkAnimator>().SetParameterAutoSend(1, true);*/
     }
 
     public bool isSwinging()

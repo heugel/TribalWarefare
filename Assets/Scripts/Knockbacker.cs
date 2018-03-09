@@ -50,10 +50,19 @@ public class Knockbacker : MonoBehaviour {
                 otherrb.gameObject.GetComponent<AI_Caveman>().Hitstun(hitstun);
                 
             }
-            else
+            else if (!otherrb.gameObject.GetComponent<ItemInteraction>())
             {
                 otherrb.AddForce(kbvec, ForceMode.VelocityChange);
+                //PI.Cmd_Knockback(otherrb.gameObject, kbvec);
+                //PI.Cmd_ItemKB(otherrb.gameObject, kbvec);
             }
+            else
+            {
+                //otherrb.AddForce(kbvec, ForceMode.VelocityChange);
+                //PI.Cmd_Knockback(otherrb.gameObject, kbvec);
+                PI.Cmd_ItemKB(otherrb.gameObject, kbvec);
+            }
+
         }
     }
 }

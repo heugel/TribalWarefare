@@ -22,7 +22,7 @@ public class Caveman_RB : NetworkBehaviour
 
     //private Attack2 AtkMain;
 
-    public GameObject Body;
+    //public GameObject Body;
     private Animator BodyAnim;
 
     public Color TeamColor;
@@ -40,8 +40,17 @@ public class Caveman_RB : NetworkBehaviour
         //AtkMain=transform.FindChild("Hitboxes").GetComponent<Attack2>();
         //BodyAnim = Body.GetComponent<Animator>();
         BodyAnim = GetComponent<Animator>();
-
+        //gameObject.GetComponent<NetworkAnimator>().SetParameterAutoSend(1, true);
+        //gameObject.GetComponent<NetworkAnimator>().Sett
     }
+
+    [Command]
+    public void Cmd_SendAnim(bool anim)
+    {
+        GetComponent<PlayerInteraction>().Rpc_RecAnim("walk",anim);
+    }
+
+
 
     public void TeamSet(Color newcol) { TeamColor = newcol;  }
     public Color TeamGet() { return TeamColor; }
@@ -54,8 +63,12 @@ public class Caveman_RB : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        //gameObject.GetComponent<NetworkAnimator>().SetParameterAutoSend(1, direction != Vector3.zero);
 
         BodyAnim.SetBool("walk", direction!=Vector3.zero);
+        Cmd_SendAnim(direction != Vector3.zero);
+        //GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
+        //GetComponent<NetworkAnimator>().SetParameterAutoSend(1, true);
 
         //Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y-(distground+.07f), transform.position.z), Color.red);
 

@@ -33,6 +33,12 @@ public class PlayerInteraction : NetworkBehaviour {
         }
     }
 
+    [ClientRpc]
+    public void Rpc_RecAnim(string name, bool anim)
+    {
+        GetComponent<Animator>().SetBool(name, anim);
+    }
+
     [Command]
     public void Cmd_Hitstun(GameObject go, float time)
     {
@@ -60,4 +66,12 @@ public class PlayerInteraction : NetworkBehaviour {
         //}
     }
 
+    [Command]
+    public void Cmd_ItemKB(GameObject go, Vector3 kbvec)
+    {
+        if (isLocalPlayer)
+            go.GetComponent<Rigidbody>().AddForce(kbvec, ForceMode.VelocityChange);
+
+        go.GetComponent<ItemInteraction>().Rpc_KB(kbvec);
+    }
 }

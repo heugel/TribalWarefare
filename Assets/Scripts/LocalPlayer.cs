@@ -17,7 +17,20 @@ public class LocalPlayer : NetworkBehaviour
 
 
     private bool doneyet = false;
+    public override void PreStartClient()
+    {
+        GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
+        GetComponent<NetworkAnimator>().SetParameterAutoSend(1, true);
+        //GetComponent<NetworkAnimator>().SetTrigger();
+        //base.PreStartClient();
+    }
+    public override void OnStartLocalPlayer()
+    {
+        GetComponent<NetworkAnimator>().SetParameterAutoSend(0,true);
+        GetComponent<NetworkAnimator>().SetParameterAutoSend(1,true);
 
+        //base.OnStartLocalPlayer();
+    }
     // Use this for initialization
     void Start()
     {
@@ -27,7 +40,7 @@ public class LocalPlayer : NetworkBehaviour
             GetComponent<Caveman_RB>().enabled = true;
             GetComponent<SmoothMouseLook>().enabled = true;
             GetComponent<Attack_Caveman>().enabled = true;
-
+            //GetComponent<NetworkAnimator>().SetTrigger();
             GameObject.Find("WaitingCamera").SetActive(false);
 
             doneyet = true;

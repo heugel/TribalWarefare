@@ -20,8 +20,8 @@ public class Attack_Caveman : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        AtkMain = transform.FindChild("Hitboxes").GetComponent<Attack2>();
-
+        //AtkMain = transform.FindChild("Hitboxes").GetComponent<Attack2>();
+        AtkMain = GetComponent<Attack2>();
     }
 
     // Update is called once per frame
