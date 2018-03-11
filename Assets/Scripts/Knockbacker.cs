@@ -12,6 +12,8 @@ public class Knockbacker : MonoBehaviour {
 
     public PlayerInteraction PI;
 
+    public void SetPI(PlayerInteraction newpi) { PI = newpi; }
+
     private void OnTriggerEnter(Collider other)
     {
         
