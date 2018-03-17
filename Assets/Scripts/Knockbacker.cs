@@ -49,7 +49,7 @@ public class Knockbacker : MonoBehaviour {
             }
             else if (otherrb.gameObject.tag == "AIPlayer")
             {
-                otherrb.gameObject.GetComponent<AI_Caveman>().Hitstun(hitstun);
+                //otherrb.gameObject.GetComponent<AI_Caveman>().Hitstun(hitstun);
                 
             }
             else if (!otherrb.gameObject.GetComponent<ItemInteraction>())
